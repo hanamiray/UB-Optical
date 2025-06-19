@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="/static/index.css">
+    <title>U-B Optical</title>
+    <link rel="website icon" type="png" href="{{ url_for('static', filename='images/logo2.png') }}" alt="Logo">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+
+        /* Brand Carousel */
+        .brands-section {
+            margin: 50px 0;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            padding: 40px 20px;
+            border-radius: 10px;
+            position: relative;
+        }
+        
+        /* Add overlay to improve text readability over the background */
+        .brands-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%; /* Extend far to the left */
+            width: 300%; /* Make it extra wide to ensure full coverage */
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 10px;
+            z-index: 0;
+        }
+        
+        .brands-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .brands-carousel {
+            position: relative;
+            overflow: hidden;
+            padding: 20px 0;
+            z-index: 1;
+        }
+        
+        .brands-track {
+            display: flex;
+            gap: 30px;
+            transition: transform 0.5s ease;
+        }
+        
+        .brand-card {
+            flex: 0 0 150px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .brand-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .brand-logo {
+            width: 100px;
+            height: 60px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+        
+        .brand-name {
+            font-size: 0.9rem;
+            text-align: center;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+        
+        .carousel-nav {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .carousel-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+        }
+        
+        .carousel-btn:hover {
+            background: var(--secondary-color);
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .brand-card {
+                flex: 0 0 120px;
+            }
+            
+            .brand-logo {
+                width: 80px;
+                height: 50px;
+            }
+            
+            .price-info {
+                padding: 20px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+<!-- Navigation -->
+    <div class="nav-container">
+        <div class="nav-wrapper">
+            <!-- Enhanced Burger Menu -->
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                <span class="line"></span>
+                <span class="line"></span>
+                <span class="line"></span>
+            </button>
+
+
+<div class="logo-container">
+    <img class="logo-img" src="{{ url_for('static', filename='images/logo2.png') }}" alt="UB Optical Logo">
+    <div class="logo-text-container">
+        <div class="logo-text"><span>  U-B</span> Optical</div>
+        <div class="logo-subtext">ULIC-ULIC BUENAOBRA OPTICAL</div>
+    </div>
+</div>
+
+
+<div class="nav-links">
+    <a href="{{ url_for('index') }}" class="nav-link {{ 'active' if request.endpoint == 'index' }}">HOME</a>
+    <a href="{{ url_for('about') }}" class="nav-link {{ 'active' if request.endpoint == 'about' }}">ABOUT US</a>
+    <a href="{{ url_for('optometrist') }}" class="nav-link {{ 'active' if request.endpoint == 'optometrist' }}">OPTOMETRIST</a>
+    <a href="{{ url_for('location') }}" class="nav-link {{ 'active' if request.endpoint == 'location' }}">LOCATION</a>
+    <a href="{{ url_for('schedule') }}" class="nav-link {{ 'active' if request.endpoint == 'schedule' }}">SCHEDULE</a>
+    <a href="{{ url_for('services') }}" class="nav-link {{ 'active' if request.endpoint == 'services' }}">SERVICES</a>
+    <a href="{{ url_for('consultation') }}" class="nav-link {{ 'active' if request.endpoint == 'consultation' }}">CONSULTATION</a>
+</div>
+            
+            <!-- Admin button on the right -->
+            <!-- Change this in your navigation section -->
+            <div class="nav-actions">
+                <a href="{{ url_for('login') }}" class="action-icon admin-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                    </svg>
+                </a>
+            </div>
+
+
+        </div>
+    </div>
+
+
+
+
+
+
+    <!-- Consultation Content -->
+<!-- Consultation Content -->
+<section class="content-section">
+    <!-- Hero Section -->
+    <div class="consultation-hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Eye Care For You</h1>
+            <p class="hero-subtitle">Discover the perfect frames for your unique style</p>
+            <button class="hero-btn" onclick="window.location.href='{{ url_for('about') }}'">About Us</button>
+        </div>
+    </div>
+
+    <div class="section-container">
+        <!-- Brand Carousel -->
+        <div class="brands-section">
+            <!-- In the brands-section div, after the section-title -->
+            <div class="brands-header">
+                <h2 class="section-title">Premium Frame Brands</h2>
+                <a href="{{ url_for('list') }}" class="search-brands-button"> <i class="fas fa-search"></i>   Search here the frame brands you want</a>
+            </div>
+            
+            <div class="brands-carousel">
+                <div class="brands-track" id="brandsTrack">
+                    <!-- Brand Cards will be inserted here by JavaScript -->
+                </div>
+            </div>
+            
+            <div class="carousel-nav">
+                <button class="carousel-btn" id="prevBrand"><i class="fas fa-chevron-left"></i></button>
+                <button class="carousel-btn" id="nextBrand"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </div>
+
+
+
+    
+
+    <style>
+        /* Consultation Hero Section */
+        .consultation-hero {
+            padding: 120px 20px 80px;
+            text-align: center;
+            position: relative;
+            width: 100%;
+            margin-bottom: 40px;
+        }
+
+.hero-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 80%;
+    max-width: 800px;
+    z-index: 5;
+}
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            color: var(--white);
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            line-height: 1.2;
+            position: fixed;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+                margin-bottom: 0.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--white);
+            gap: -50px; 
+            margin-bottom: -7rem;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+            font-weight: 300;
+            position: fixed;
+        }
+
+        @media (max-width: 768px) {
+            .hero-subtitle {
+                font-size: 1.2rem;
+                margin-bottom: -7rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+        }
+
+        .hero-btn {
+            background: linear-gradient(90deg, #2563eb, #38bdf8);
+            color: var(--white);
+            border: none;
+            border-radius: 30px;
+            padding: 15px 35px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.7);
+            letter-spacing: 1px;
+            margin-top: 230px;
+
+        }
+
+        @media (max-width: 768px) {
+            .hero-btn {
+                padding: 12px 25px;
+                font-size: 16px;
+            }
+        }
+
+        .hero-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 25px rgba(56, 189, 248, 0.9);
+        }
+
+        /* Adjust the brands section to have proper spacing */
+        .brands-section {
+            margin-top: 115px;
+        }
+    </style>
+</section>
+
+
+
+
+
+
+
+    <!-- JavaScript for Carousel -->
+    <script>
+
+
+
+    // Add this before the brands array
+const defaultImage = '/static/images/default.png';
+
+// Update the onerror handler
+onerror="this.src='${defaultImage}'"
+
+
+
+
+    const brands = [
+        { name: "H&M", logo: "{{ url_for('static', filename='images/brands/hm.png') }}" },
+        { name: "Lacoste", logo: "{{ url_for('static', filename='images/brands/lacoste.png') }}" },
+        { name: "Bench", logo: "{{ url_for('static', filename='images/brands/bench.png') }}" },
+        { name: "Chanel", logo: "{{ url_for('static', filename='images/brands/chanel.png') }}" },
+        { name: "Prada", logo: "{{ url_for('static', filename='images/brands/prada.jpg') }}" },
+        { name: "Tiffany & Co.", logo: "{{ url_for('static', filename='images/brands/tiffany.png') }}" },
+        { name: "Givenchy", logo: "{{ url_for('static', filename='images/brands/givenchy.png') }}" },
+        { name: "Ray-Ban", logo: "{{ url_for('static', filename='images/brands/rayban.png') }}" },
+        { name: "ESPRIT", logo: "{{ url_for('static', filename='images/brands/esprit.png') }}" },
+        { name: "GUESS", logo: "{{ url_for('static', filename='images/brands/guess.png') }}" },
+        { name: "Céline", logo: "{{ url_for('static', filename='images/brands/celine.jpg') }}" },
+        { name: "Nike", logo: "{{ url_for('static', filename='images/brands/nike.png') }}" },
+        { name: "New Balance", logo: "{{ url_for('static', filename='images/brands/newbalance.png') }}" },
+        { name: "Porsche Design", logo: "{{ url_for('static', filename='images/brands/porsche.png') }}" },
+        { name: "Original's Tony Spade", logo: "{{ url_for('static', filename='images/brands/tonyspade.jpg') }}" },
+        { name: "Versace", logo: "{{ url_for('static', filename='images/brands/versace.jpg') }}" },
+        { name: "ALDO", logo: "{{ url_for('static', filename='images/brands/aldo.jpg') }}" },
+        { name: "Oakley", logo: "{{ url_for('static', filename='images/brands/oakley.png') }}" },
+        { name: "Mercedes Benz", logo: "{{ url_for('static', filename='images/brands/mercedes.png') }}" },
+        { name: "imax", logo: "{{ url_for('static', filename='images/brands/imax.png') }}" },
+        { name: "Wellendorff", logo: "{{ url_for('static', filename='images/brands/wellendorff.jpg') }}" },
+        { name: "Elizabeth Arden", logo: "{{ url_for('static', filename='images/brands/arden.png') }}" },
+        { name: "Balenciaga", logo: "{{ url_for('static', filename='images/brands/balenciaga.png') }}" },
+        { name: "BABY Eyewear", logo: "{{ url_for('static', filename='images/brands/baby.png') }}" },
+        { name: "Hue Eyewear", logo: "{{ url_for('static', filename='images/brands/hue.png') }}" },
+        { name: "Coach New York", logo: "{{ url_for('static', filename='images/brands/coach.png') }}" },
+        { name: "Coach Est. 1941", logo: "{{ url_for('static', filename='images/brands/coach1.jpg') }}" },
+        { name: "Giordano Eyewear", logo: "{{ url_for('static', filename='images/brands/giordano.png') }}" },
+        { name: "Charlotte Tilbury", logo: "{{ url_for('static', filename='images/brands/tilbury.jpg') }}" },
+        { name: "Dickies", logo: "{{ url_for('static', filename='images/brands/dickies.png') }}" },
+        { name: "Kipling Eyewear", logo: "{{ url_for('static', filename='images/brands/kipling.png') }}" },
+        { name: "Speedo", logo: "{{ url_for('static', filename='images/brands/speedo.jpg') }}" },
+        { name: "Swiss Plus", logo: "{{ url_for('static', filename='images/brands/swissplus.png') }}" },
+        { name: "Charles & Keith", logo: "{{ url_for('static', filename='images/brands/charleskeith.png') }}" },
+        { name: "Swatch Eyewear", logo: "{{ url_for('static', filename='images/brands/swatch.png') }}" },
+        { name: "UNI QLO", logo: "{{ url_for('static', filename='images/brands/uniqlo.png') }}" },
+        { name: "Eiffel Eyewear", logo: "{{ url_for('static', filename='images/brands/sooper.png') }}" },
+        { name: "Color Blends", logo: "{{ url_for('static', filename='images/brands/sooper.png') }}" },
+        { name: "Starlight Eyewear", logo: "{{ url_for('static', filename='images/brands/sooper.png') }}" },
+        { name: "Spencer Eyewear", logo: "{{ url_for('static', filename='images/brands/spencer.png') }}" },
+        { name: "Sooper Eyewear", logo: "{{ url_for('static', filename='images/brands/sooper.png') }}" },
+        { name: "Marks & Spencer Eyewear", logo: "{{ url_for('static', filename='images/brands/ms.png') }}" },
+        { name: "Cathe Kidstone", logo: "{{ url_for('static', filename='images/brands/ck.jpg') }}" },
+        { name: "Suncari", logo: "{{ url_for('static', filename='images/brands/sooper.png') }}" },
+        { name: "DALLO", logo: "{{ url_for('static', filename='images/brands/sooper.png') }}" },
+        { name: "Lumberjacks", logo: "{{ url_for('static', filename='images/brands/lumberjacks.jpg') }}" },
+        { name: "Ful-Vue™ Trendy (American Optical)", logo: "{{ url_for('static', filename='images/brands/fulvue.jpg') }}" },
+        { name: "Les Lunettes Essilor Paris", logo: "{{ url_for('static', filename='images/brands/sooper.png') }}" },
+        { name: "Prsr", logo: "{{ url_for('static', filename='images/brands/prsr.png') }}" },
+        { name: "IP Titanium", logo: "{{ url_for('static', filename='images/brands/sooper.png') }}" },
+        { name: "Aviator", logo: "{{ url_for('static', filename='images/brands/sooper.png') }}" },
+        { name: "OshKosh B'gosh", logo: "{{ url_for('static', filename='images/brands/oshkosh.png') }}" },
+        { name: "Yamei", logo: "{{ url_for('static', filename='images/brands/yamei.jpg') }}" },
+        { name: "Claire de Lune", logo: "{{ url_for('static', filename='images/brands/claire.jpg') }}" },
+        { name: "JFK colours", logo: "{{ url_for('static', filename='images/brands/jfk.jpg') }}" },
+        { name: "GUGEE", logo: "{{ url_for('static', filename='images/brands/sooper.png') }}" },
+        { name: "Model", logo: "{{ url_for('static', filename='images/brands/sooper.png') }}" },
+        { name: "Mini", logo: "{{ url_for('static', filename='images/brands/mini.png') }}" },
+        { name: "Harwell Eyewear", logo: "{{ url_for('static', filename='images/brands/harwell.jpg') }}" },
+        { name: "SolarVision", logo: "{{ url_for('static', filename='images/brands/sooper.png') }}" },
+        { name: "Salviani Eyewear", logo: "{{ url_for('static', filename='images/brands/salviani.jpg') }}" },
+        { name: "OBL", logo: "{{ url_for('static', filename='images/brands/sooper.png') }}" },
+        { name: "Isis", logo: "{{ url_for('static', filename='images/brands/isis.png') }}" },
+        { name: "FLIPPER", logo: "{{ url_for('static', filename='images/brands/flipper.jpg') }}" },
+        { name: "Polo Eyewear", logo: "{{ url_for('static', filename='images/brands/polo.jpg') }}" },
+        { name: "Romance", logo: "{{ url_for('static', filename='images/brands/romance.jpg') }}" },
+        { name: "Miss Dior", logo: "{{ url_for('static', filename='images/brands/dior.jpg') }}" },
+        { name: "Boston Eyewear", logo: "{{ url_for('static', filename='images/brands/boston.jpg') }}" },
+        { name: "P+US", logo: "{{ url_for('static', filename='images/brands/plus.jpg') }}" },
+        { name: "Bershka", logo: "{{ url_for('static', filename='images/brands/bershka.jpg') }}" },
+        { name: "Balmain Paris", logo: "{{ url_for('static', filename='images/brands/balmain.png') }}" },
+        { name: "Estēe", logo: "{{ url_for('static', filename='images/brands/estee.png') }}" },
+        { name: "Guy Laroche", logo: "{{ url_for('static', filename='images/brands/guy.jpg') }}" },
+        { name: "Rudy Project", logo: "{{ url_for('static', filename='images/brands/rudy.png') }}" },
+        { name: "Parim", logo: "{{ url_for('static', filename='images/brands/parim.png') }}" },
+        { name: "bebe Eyewear", logo: "{{ url_for('static', filename='images/brands/bebe.png') }}" },
+        { name: "Mizuno Grand Monarch", logo: "{{ url_for('static', filename='images/brands/sooper.png') }}" },
+        { name: "Aireweare Collection", logo: "{{ url_for('static', filename='images/brands/aire.jpg') }}" },
+        { name: "BILLABONG", logo: "{{ url_for('static', filename='images/brands/billabong.png') }}" },
+        { name: "Longchamp", logo: "{{ url_for('static', filename='images/brands/longchamp.png') }}" },
+        { name: "Florentina", logo: "{{ url_for('static', filename='images/brands/florentina.jpg') }}" }
+    ];
+
+        // Initialize carousel
+        const brandsTrack = document.getElementById('brandsTrack');
+        const prevBtn = document.getElementById('prevBrand');
+        const nextBtn = document.getElementById('nextBrand');
+        let currentPosition = 0;
+        const cardWidth = 180; // Width + margin
+        
+        // Create brand cards
+        brands.forEach(brand => {
+            const brandCard = document.createElement('div');
+            brandCard.className = 'brand-card';
+
+            // Change the brand card creation to:
+            brandCard.innerHTML = `
+                <img src="${brand.logo}" alt="${brand.name} Logo" class="brand-logo" 
+                    onerror="this.onerror=null;this.src='{{ url_for('static', filename='images/default.png') }}'">
+                <span class="brand-name">${brand.name}</span>
+            `;
+
+            brandsTrack.appendChild(brandCard);
+        });
+        
+        // Carousel navigation
+        function updateCarousel() {
+            brandsTrack.style.transform = `translateX(-${currentPosition * cardWidth}px)`;
+        }
+        
+        nextBtn.addEventListener('click', () => {
+            if (currentPosition < brands.length - 5) {
+                currentPosition++;
+                updateCarousel();
+            }
+        });
+        
+        prevBtn.addEventListener('click', () => {
+            if (currentPosition > 0) {
+                currentPosition--;
+                updateCarousel();
+            }
+        });
+        
+        // Auto-scroll (optional)
+        setInterval(() => {
+            if (currentPosition < brands.length - 5) {
+                currentPosition++;
+            } else {
+                currentPosition = 0;
+            }
+            updateCarousel();
+        }, 3000);
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- JavaScript -->
+    <script>
+        
+        // Mobile menu functionality
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuToggle.addEventListener('click', function() {
+            navLinks.classList.toggle('mobile-active');
+            this.classList.toggle('active');
+        });
+        
+        // Close mobile menu when a link is clicked
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    navLinks.classList.remove('mobile-active');
+                    mobileMenuToggle.classList.remove('active');
+                }
+            });
+        });         
+    </script>
+</body>
+</html>

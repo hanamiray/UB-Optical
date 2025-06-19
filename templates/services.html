@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="/static/services.css">
+    <title>Our Services | U-B Optical</title>
+    <link rel="website icon" type="png" href="{{ url_for('static', filename='images/logo2.png') }}" alt="Logo">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Services Page Specific Styles */
+        .services-section {
+            padding: 60px 20px;
+        }
+        
+        .service-category {
+            margin-bottom: 50px;
+        }
+        
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .service-card {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e1f5fe 100%);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .service-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 3px solid var(--secondary-color);
+        }
+        
+        .service-content {
+            padding: 20px;
+        }
+        
+        .service-list {
+            list-style-type: none;
+            margin: 15px 0;
+            padding: 0;
+        }
+        
+        .service-list li {
+            padding: 8px 0;
+            position: relative;
+            padding-left: 25px;
+        }
+        
+        .service-list li::before {
+            content: "•";
+            position: absolute;
+            left: 10px;
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+        }
+        
+        .amenities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .amenity-card {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e1f5fe 100%);
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        }
+        
+        .amenity-icon {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+        
+        /* Image Gallery */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+        
+        .gallery-item {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .gallery-item:hover {
+            transform: scale(1.03);
+        }
+        
+        .gallery-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        @media (max-width: 768px) {
+            .service-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .gallery {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <div class="nav-container">
+        <div class="nav-wrapper">
+            <!-- Enhanced Burger Menu -->
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                <span class="line"></span>
+                <span class="line"></span>
+                <span class="line"></span>
+            </button>
+
+
+<div class="logo-container">
+    <img class="logo-img" src="{{ url_for('static', filename='images/logo2.png') }}" alt="UB Optical Logo">
+    <div class="logo-text-container">
+        <div class="logo-text"><span>  U-B</span> Optical</div>
+        <div class="logo-subtext">ULIC-ULIC BUENAOBRA OPTICAL</div>
+    </div>
+</div>
+            
+<div class="nav-links">
+    <a href="{{ url_for('index') }}" class="nav-link {{ 'active' if request.endpoint == 'index' }}">HOME</a>
+    <a href="{{ url_for('about') }}" class="nav-link {{ 'active' if request.endpoint == 'about' }}">ABOUT US</a>
+    <a href="{{ url_for('optometrist') }}" class="nav-link {{ 'active' if request.endpoint == 'optometrist' }}">OPTOMETRIST</a>
+    <a href="{{ url_for('location') }}" class="nav-link {{ 'active' if request.endpoint == 'location' }}">LOCATION</a>
+    <a href="{{ url_for('schedule') }}" class="nav-link {{ 'active' if request.endpoint == 'schedule' }}">SCHEDULE</a>
+    <a href="{{ url_for('services') }}" class="nav-link {{ 'active' if request.endpoint == 'services' }}">SERVICES</a>
+    <a href="{{ url_for('consultation') }}" class="nav-link {{ 'active' if request.endpoint == 'consultation' }}">CONSULTATION</a>
+</div>
+            
+            <!-- Admin button on the right -->
+            <!-- Change this in your navigation section -->
+            <div class="nav-actions">
+                <a href="{{ url_for('login') }}" class="action-icon admin-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Services Content -->
+    <section class="content-section">
+        <div class="section-container">
+            <h2 class="section-title">Our Services</h2>
+            <p class="section-text">
+                Comprehensive eye care services with quality care to meet all your vision needs.
+            </p>
+            
+            <!-- Optical Services -->
+            <div class="service-category">
+                
+                <div class="service-grid">
+
+                    <div class="service-card">
+                        <img src="{{ url_for('static', filename='images/eye-test.jpeg') }}" alt="Eye Tests" class="service-image">
+                        <div class="service-content">
+                            <h4>Eye Examinations</h4>
+                            <ul class="service-list">
+                                <li>Computerized Eye Refraction</li>
+                                <li>Visual Acuity Test</li>
+                                <li>Ishihara Test</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="service-card">
+                        <img src="{{ url_for('static', filename='images/eyeglass-repair.jpg') }}" alt="Eyeglass Repair" class="service-image">
+                        <div class="service-content">
+                            <h4>Eyeglass Services</h4>
+                            <ul class="service-list">
+                                <li>General Eyeglass Repairs</li>
+                                <li>Lens Transfer</li>
+                                <li>Frame Adjustments</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    
+                    <div class="service-card">
+                        <img src="{{ url_for('static', filename='images/contacts.jpg') }}" alt="Contact Lenses" class="service-image">
+                        <div class="service-content">
+                            <h4>Contact Lenses</h4>
+                            <ul class="service-list">
+                                <li>Contact Lens Fitting</li>
+                                <li>Prescription Lenses</li>
+                                <li>Follow-up Care</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+
+            </div>
+            
+            <!-- Other Services -->
+            <div class="service-category"> <br>
+                <h2 class="section-title">Other Services</h2>
+                
+                <div class="amenities-grid">
+                    <div class="amenity-card">
+                        <span class="amenity-icon">🚻</span>
+                        <div>
+                            <h4>Gender-neutral restroom</h4>
+                            <p>Available for all patients</p>
+                        </div>
+                    </div>
+                    
+                    <div class="amenity-card">
+                        <span class="amenity-icon">♿</span>
+                        <div>
+                            <h4>Accessibility</h4>
+                            <p>Wheelchair accessible entrance</p>
+                        </div>
+                    </div>
+                    
+
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    
+
+    <!-- JavaScript -->
+    <script>
+        
+        // Mobile menu functionality
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuToggle.addEventListener('click', function() {
+            navLinks.classList.toggle('mobile-active');
+            this.classList.toggle('active');
+        });
+        
+        // Close mobile menu when a link is clicked
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    navLinks.classList.remove('mobile-active');
+                    mobileMenuToggle.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

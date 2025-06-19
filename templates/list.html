@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="/static/index.css">
+    <title>Brand List - U-B Optical</title>
+    <link rel="website icon" type="png" href="{{ url_for('static', filename='images/logo2.png') }}" alt="Logo">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Brand List Page Styles */
+        .brand-list-section {
+            padding: 80px 20px;
+            background-color: var(--light-bg);
+        }
+        
+        .brand-list-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .search-container {
+            display: flex;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .search-input {
+            flex: 1;
+            padding: 12px 20px;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            font-size: 1rem;
+            padding-left: 45px;
+            transition: all 0.3s ease;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(26, 41, 128, 0.1);
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary-color);
+        }
+        
+        .brand-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .brand-list-item {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .brand-list-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .brand-list-logo {
+            width: 60px;
+            height: 40px;
+            object-fit: contain;
+            margin-right: 15px;
+        }
+        
+        .brand-list-name {
+            font-weight: 500;
+            color: var(--text-color);
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .back-link:hover {
+            color: var(--secondary-color);
+        }
+        
+        .back-link i {
+            margin-right: 5px;
+        }
+        
+        @media (max-width: 768px) {
+            .brand-list {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation (same as index.html) -->
+    <div class="nav-container">
+        <div class="nav-wrapper">
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                <span class="line"></span>
+                <span class="line"></span>
+                <span class="line"></span>
+            </button>
+
+            <div class="logo-container">
+                <img class="logo-img" src="{{ url_for('static', filename='images/logo2.png') }}" alt="UB Optical Logo">
+                <div class="logo-text-container">
+                    <div class="logo-text"><span>U-B</span> Optical</div>
+                    <div class="logo-subtext">ULIC-ULIC BUENAOBRA OPTICAL</div>
+                </div>
+            </div>
+            
+<div class="nav-links">
+    <a href="{{ url_for('index') }}" class="nav-link {{ 'active' if request.endpoint == 'index' }}">HOME</a>
+    <a href="{{ url_for('about') }}" class="nav-link {{ 'active' if request.endpoint == 'about' }}">ABOUT US</a>
+    <a href="{{ url_for('optometrist') }}" class="nav-link {{ 'active' if request.endpoint == 'optometrist' }}">OPTOMETRIST</a>
+    <a href="{{ url_for('location') }}" class="nav-link {{ 'active' if request.endpoint == 'location' }}">LOCATION</a>
+    <a href="{{ url_for('schedule') }}" class="nav-link {{ 'active' if request.endpoint == 'schedule' }}">SCHEDULE</a>
+    <a href="{{ url_for('services') }}" class="nav-link {{ 'active' if request.endpoint == 'services' }}">SERVICES</a>
+    <a href="{{ url_for('consultation') }}" class="nav-link {{ 'active' if request.endpoint == 'consultation' }}">CONSULTATION</a>
+</div>
+            
+            <!-- Change this in your navigation section -->
+            <div class="nav-actions">
+                <a href="login.html" class="action-icon admin-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Brand List Content -->
+    <section class="brand-list-section">
+        <div class="brand-list-container">
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="search-input" placeholder="Search frame brands..." id="brandSearch">
+            </div>
+            
+            <div class="brand-list" id="brandList">
+                <!-- Brand items will be inserted here by JavaScript -->
+            </div>
+            
+            <a href="{{ url_for('index') }}" class="back-link"><i class="fas fa-arrow-left"></i> Back to Home</a>
+        </div>
+    </section>
+
+    <!-- JavaScript -->
+    <script>
+        // Use the same brands array from index.html
+        const brands = [
+        { name: "H&M", logo: "{{ url_for('static', filename='images/brands/hm.png') }}" },
+        { name: "Lacoste", logo: "{{ url_for('static', filename='images/brands/lacoste.png') }}" },
+        { name: "Bench", logo: "{{ url_for('static', filename='images/brands/bench.png') }}" },
+        { name: "Chanel", logo: "{{ url_for('static', filename='images/brands/chanel.png') }}" },
+        { name: "Prada", logo: "{{ url_for('static', filename='images/brands/prada.jpg') }}" },
+        { name: "Tiffany & Co.", logo: "{{ url_for('static', filename='images/brands/tiffany.png') }}" },
+        { name: "Givenchy", logo: "{{ url_for('static', filename='images/brands/givenchy.png') }}" },
+        { name: "Ray-Ban", logo: "{{ url_for('static', filename='images/brands/rayban.png') }}" },
+        { name: "ESPRIT", logo: "{{ url_for('static', filename='images/brands/esprit.png') }}" },
+        { name: "GUESS", logo: "{{ url_for('static', filename='images/brands/guess.png') }}" },
+        { name: "Céline", logo: "{{ url_for('static', filename='images/brands/celine.jpg') }}" },
+        { name: "Nike", logo: "{{ url_for('static', filename='images/brands/nike.png') }}" },
+        { name: "New Balance", logo: "{{ url_for('static', filename='images/brands/newbalance.png') }}" },
+        { name: "Porsche Design", logo: "{{ url_for('static', filename='images/brands/porsche.png') }}" },
+        { name: "Original's Tony Spade", logo: "{{ url_for('static', filename='images/brands/tonyspade.jpg') }}" },
+        { name: "Versace", logo: "{{ url_for('static', filename='images/brands/versace.jpg') }}" },
+        { name: "ALDO", logo: "{{ url_for('static', filename='images/brands/aldo.jpg') }}" },
+        { name: "Oakley", logo: "{{ url_for('static', filename='images/brands/oakley.png') }}" },
+        { name: "Mercedes Benz", logo: "{{ url_for('static', filename='images/brands/mercedes.png') }}" },
+        { name: "imax", logo: "{{ url_for('static', filename='images/brands/imax.png') }}" },
+        { name: "Wellendorff", logo: "{{ url_for('static', filename='images/brands/wellendorff.jpg') }}" },
+        { name: "Elizabeth Arden", logo: "{{ url_for('static', filename='images/brands/arden.png') }}" },
+        { name: "Balenciaga", logo: "{{ url_for('static', filename='images/brands/balenciaga.png') }}" },
+        { name: "BABY Eyewear", logo: "{{ url_for('static', filename='images/brands/baby.png') }}" },
+        { name: "Hue Eyewear", logo: "{{ url_for('static', filename='images/brands/hue.png') }}" },
+        { name: "Coach New York", logo: "{{ url_for('static', filename='images/brands/coach.png') }}" },
+        { name: "Coach Est. 1941", logo: "{{ url_for('static', filename='images/brands/coach1.jpg') }}" },
+        { name: "Giordano Eyewear", logo: "{{ url_for('static', filename='images/brands/giordano.png') }}" },
+        { name: "Charlotte Tilbury", logo: "{{ url_for('static', filename='images/brands/tilbury.jpg') }}" },
+        { name: "Dickies", logo: "{{ url_for('static', filename='images/brands/dickies.png') }}" },
+        { name: "Kipling Eyewear", logo: "{{ url_for('static', filename='images/brands/kipling.png') }}" },
+        { name: "Speedo", logo: "{{ url_for('static', filename='images/brands/speedo.jpg') }}" },
+        { name: "Swiss Plus", logo: "{{ url_for('static', filename='images/brands/swissplus.png') }}" },
+        { name: "Charles & Keith", logo: "{{ url_for('static', filename='images/brands/charleskeith.png') }}" },
+        { name: "Swatch Eyewear", logo: "{{ url_for('static', filename='images/brands/swatch.png') }}" },
+        { name: "UNI QLO", logo: "{{ url_for('static', filename='images/brands/uniqlo.png') }}" },
+        { name: "Eiffel Eyewear", logo: "{{ url_for('static', filename='images/brands/sooper.png') }}" },
+        { name: "Color Blends", logo: "{{ url_for('static', filename='images/brands/sooper.png') }}" },
+        { name: "Starlight Eyewear", logo: "{{ url_for('static', filename='images/brands/sooper.png') }}" },
+        { name: "Spencer Eyewear", logo: "{{ url_for('static', filename='images/brands/spencer.png') }}" },
+        { name: "Sooper Eyewear", logo: "{{ url_for('static', filename='images/brands/sooper.png') }}" },
+        { name: "Marks & Spencer Eyewear", logo: "{{ url_for('static', filename='images/brands/ms.png') }}" },
+        { name: "Cathe Kidstone", logo: "{{ url_for('static', filename='images/brands/ck.jpg') }}" },
+        { name: "Suncari", logo: "{{ url_for('static', filename='images/brands/sooper.png') }}" },
+        { name: "DALLO", logo: "{{ url_for('static', filename='images/brands/sooper.png') }}" },
+        { name: "Lumberjacks", logo: "{{ url_for('static', filename='images/brands/lumberjacks.jpg') }}" },
+        { name: "Ful-Vue™ Trendy (American Optical)", logo: "{{ url_for('static', filename='images/brands/fulvue.jpg') }}" },
+        { name: "Les Lunettes Essilor Paris", logo: "{{ url_for('static', filename='images/brands/sooper.png') }}" },
+        { name: "Prsr", logo: "{{ url_for('static', filename='images/brands/prsr.png') }}" },
+        { name: "IP Titanium", logo: "{{ url_for('static', filename='images/brands/sooper.png') }}" },
+        { name: "Aviator", logo: "{{ url_for('static', filename='images/brands/sooper.png') }}" },
+        { name: "OshKosh B'gosh", logo: "{{ url_for('static', filename='images/brands/oshkosh.png') }}" },
+        { name: "Yamei", logo: "{{ url_for('static', filename='images/brands/yamei.jpg') }}" },
+        { name: "Claire de Lune", logo: "{{ url_for('static', filename='images/brands/claire.jpg') }}" },
+        { name: "JFK colours", logo: "{{ url_for('static', filename='images/brands/jfk.jpg') }}" },
+        { name: "GUGEE", logo: "{{ url_for('static', filename='images/brands/sooper.png') }}" },
+        { name: "Model", logo: "{{ url_for('static', filename='images/brands/sooper.png') }}" },
+        { name: "Mini", logo: "{{ url_for('static', filename='images/brands/mini.png') }}" },
+        { name: "Harwell Eyewear", logo: "{{ url_for('static', filename='images/brands/harwell.jpg') }}" },
+        { name: "SolarVision", logo: "{{ url_for('static', filename='images/brands/sooper.png') }}" },
+        { name: "Salviani Eyewear", logo: "{{ url_for('static', filename='images/brands/salviani.jpg') }}" },
+        { name: "OBL", logo: "{{ url_for('static', filename='images/brands/sooper.png') }}" },
+        { name: "Isis", logo: "{{ url_for('static', filename='images/brands/isis.png') }}" },
+        { name: "FLIPPER", logo: "{{ url_for('static', filename='images/brands/flipper.jpg') }}" },
+        { name: "Polo Eyewear", logo: "{{ url_for('static', filename='images/brands/polo.jpg') }}" },
+        { name: "Romance", logo: "{{ url_for('static', filename='images/brands/romance.jpg') }}" },
+        { name: "Miss Dior", logo: "{{ url_for('static', filename='images/brands/dior.jpg') }}" },
+        { name: "Boston Eyewear", logo: "{{ url_for('static', filename='images/brands/boston.jpg') }}" },
+        { name: "P+US", logo: "{{ url_for('static', filename='images/brands/plus.jpg') }}" },
+        { name: "Bershka", logo: "{{ url_for('static', filename='images/brands/bershka.jpg') }}" },
+        { name: "Balmain Paris", logo: "{{ url_for('static', filename='images/brands/balmain.png') }}" },
+        { name: "Estēe", logo: "{{ url_for('static', filename='images/brands/estee.png') }}" },
+        { name: "Guy Laroche", logo: "{{ url_for('static', filename='images/brands/guy.jpg') }}" },
+        { name: "Rudy Project", logo: "{{ url_for('static', filename='images/brands/rudy.png') }}" },
+        { name: "Parim", logo: "{{ url_for('static', filename='images/brands/parim.png') }}" },
+        { name: "bebe Eyewear", logo: "{{ url_for('static', filename='images/brands/bebe.png') }}" },
+        { name: "Mizuno Grand Monarch", logo: "{{ url_for('static', filename='images/brands/sooper.png') }}" },
+        { name: "Aireweare Collection", logo: "{{ url_for('static', filename='images/brands/aire.jpg') }}" },
+        { name: "BILLABONG", logo: "{{ url_for('static', filename='images/brands/billabong.png') }}" },
+        { name: "Longchamp", logo: "{{ url_for('static', filename='images/brands/longchamp.png') }}" },
+        { name: "Florentina", logo: "{{ url_for('static', filename='images/brands/florentina.jpg') }}" }
+    ];
+
+        // Initialize brand list
+        const brandList = document.getElementById('brandList');
+        const brandSearch = document.getElementById('brandSearch');
+        
+        // Display all brands initially
+        displayBrands(brands);
+        
+        // Search functionality
+        brandSearch.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            const filteredBrands = brands.filter(brand => 
+                brand.name.toLowerCase().includes(searchTerm)
+            );
+            displayBrands(filteredBrands);
+        });
+        
+        function displayBrands(brandsToDisplay) {
+            brandList.innerHTML = '';
+            
+            brandsToDisplay.forEach(brand => {
+                const brandItem = document.createElement('div');
+                brandItem.className = 'brand-list-item';
+                brandItem.innerHTML = `
+                    <img src="${brand.logo}" alt="${brand.name}" class="brand-list-logo" onerror="this.src='/images/brands/default.png'">
+                    <span class="brand-list-name">${brand.name}</span>
+                `;
+                brandList.appendChild(brandItem);
+            });
+        }
+        
+        // Mobile menu functionality (same as index.html)
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuToggle.addEventListener('click', function() {
+            navLinks.classList.toggle('mobile-active');
+            this.classList.toggle('active');
+        });
+        
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    navLinks.classList.remove('mobile-active');
+                    mobileMenuToggle.classList.remove('active');
+                }
+            });
+        });
+        
+    </script>
+</body>
+</html>

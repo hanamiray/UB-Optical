@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="/static/location.css">
+    <title>Location | U-B Optical</title>
+    <link rel="website icon" type="png" href="{{ url_for('static', filename='images/logo2.png') }}" alt="Logo">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Override the gradient colors */
+        .nav-container {
+            background: linear-gradient(135deg, #1a2980 0%, #26d0ce 100%);
+        }
+        .quality-card {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e1f5fe 100%);
+        }
+        .login-btn {
+            background: linear-gradient(135deg, #1a2980 0%, #26d0ce 100%);
+        }
+        .section-title::after, .highlight-box {
+            background: linear-gradient(135deg, #1a2980 0%, #26d0ce 100%);
+        }
+        .highlight-box {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e1f5fe 100%);
+        }
+        .nav-link:hover, .nav-link.active {
+            color: #48cae4 !important;
+        }
+
+        /* Change this line in the <style> section */
+        .nav-link:hover, .nav-link.active {
+            color: white !important;
+        }
+
+        /* Location specific styles */
+        .location-info {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .location-card {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e1f5fe 100%);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-top: 4px solid var(--secondary-color);
+        }
+
+        .location-title {
+            font-family: 'Playfair Display', serif;
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .location-details {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-color);
+        }
+
+        .location-details a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .location-details a:hover {
+            color: var(--secondary-color);
+            text-decoration: underline;
+        }
+
+        .landmarks-list {
+            list-style-type: none;
+            margin: 20px 0;
+            padding-left: 0;
+        }
+
+        .landmarks-list li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .landmarks-list li::before {
+            content: "•";
+            position: absolute;
+            left: 10px;
+            color: var(--secondary-color);
+            font-size: 1.5rem;
+        }
+
+        .map-container {
+            margin-top: 30px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 400px;
+            border: none;
+        }
+
+
+
+
+.clickable-link {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;
+    padding-right: 5px;
+
+}
+
+.clickable-link:hover {
+    color: var(--secondary-color);
+    border-bottom-color: var(--secondary-color);
+    text-decoration: none;
+}
+
+.link-icon {
+    margin-left: 5px;
+    font-size: 0.9em;
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.link-hint {
+    font-size: 0.8em;
+    color: var(--secondary-color);
+    margin-left: 5px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.clickable-link:hover .link-icon {
+    transform: rotate(45deg);
+}
+
+.clickable-link:hover .link-hint {
+    opacity: 1;
+}
+
+/* For mobile devices, always show the hint */
+@media (max-width: 768px) {
+    .link-hint {
+        opacity: 1;
+        font-size: 0.7em;
+    }
+}
+
+
+
+
+
+
+
+
+.logo-text-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.logo-subtext {
+    font-family: 'Playfair Display', serif;
+    color: var(--white);
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    margin-top: -5px;
+    animation: gentleGlow 3s infinite alternate;
+    opacity: 0.9;
+}
+
+/* For mobile responsiveness */
+@media (max-width: 768px) {
+    .logo-subtext {
+        font-size: 0.7rem;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <div class="nav-container">
+        <div class="nav-wrapper">
+            <!-- Enhanced Burger Menu -->
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                <span class="line"></span>
+                <span class="line"></span>
+                <span class="line"></span>
+            </button>
+
+<div class="logo-container">
+    <img class="logo-img" src="{{ url_for('static', filename='images/logo2.png') }}" alt="UB Optical Logo">
+    <div class="logo-text-container">
+        <div class="logo-text"><span>  U-B</span> Optical</div>
+        <div class="logo-subtext">ULIC-ULIC BUENAOBRA OPTICAL</div>
+    </div>
+</div>
+            
+<div class="nav-links">
+    <a href="{{ url_for('index') }}" class="nav-link {{ 'active' if request.endpoint == 'index' }}">HOME</a>
+    <a href="{{ url_for('about') }}" class="nav-link {{ 'active' if request.endpoint == 'about' }}">ABOUT US</a>
+    <a href="{{ url_for('optometrist') }}" class="nav-link {{ 'active' if request.endpoint == 'optometrist' }}">OPTOMETRIST</a>
+    <a href="{{ url_for('location') }}" class="nav-link {{ 'active' if request.endpoint == 'location' }}">LOCATION</a>
+    <a href="{{ url_for('schedule') }}" class="nav-link {{ 'active' if request.endpoint == 'schedule' }}">SCHEDULE</a>
+    <a href="{{ url_for('services') }}" class="nav-link {{ 'active' if request.endpoint == 'services' }}">SERVICES</a>
+    <a href="{{ url_for('consultation') }}" class="nav-link {{ 'active' if request.endpoint == 'consultation' }}">CONSULTATION</a>
+</div>
+            
+            <!-- Admin button on the right -->
+            <!-- Change this in your navigation section -->
+            <div class="nav-actions">
+                <a href="{{ url_for('login') }}" class="action-icon admin-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Content Section -->
+    <section class="content-section">
+        <div class="section-container">
+            <h2 class="section-title">Our Location</h2>
+            <p class="section-text">
+                Visit us at our conveniently located clinic in Binangonan, Rizal. We're here to serve all your eye care needs in a comfortable and welcoming environment.
+            </p>
+            
+            <div class="location-info">
+                <div class="location-card">
+                    <h3 class="location-title">📍 Optical Location</h3>
+                    <p class="location-details">
+                        Our clinic is at <strong>728-B, J.P. Rizal Ave, Binangonan, Rizal</strong>.<br>
+                        <a href="https://maps.app.goo.gl/bXDmYB2YYPgSM59F9" target="_blank">View on Google Maps</a>
+                    </p>
+                    
+                    <h4 style="margin-top: 25px; color: var(--primary-color); font-family: 'Playfair Display', serif;">Landmarks:</h4>
+                    <ul class="landmarks-list">
+                        <li>Along PNB</li>
+                        <li>In front of Thrift Mart</li>
+                    </ul>
+                    
+                    <div class="map-container">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1475.2488377753978!2d121.19189353106044!3d14.465385443791929!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397c3983d5803d5%3A0xca933df7fee4dc5f!2sU-B%20OPTICAL!5e0!3m2!1sen!2sph!4v1747705879844!5m2!1sen!2sph" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+                
+
+
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- JavaScript -->
+    <script>
+        
+        // Mobile menu functionality
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuToggle.addEventListener('click', function() {
+            navLinks.classList.toggle('mobile-active');
+            this.classList.toggle('active');
+        });
+        
+        // Close mobile menu when a link is clicked
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    navLinks.classList.remove('mobile-active');
+                    mobileMenuToggle.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

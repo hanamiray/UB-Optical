@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="/static/consultation.css">
+    <title>Consultation | U-B Optical</title>
+    <link rel="website icon" type="png" href="{{ url_for('static', filename='images/logo2.png') }}" alt="Logo">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Consultation Page Specific Styles */
+        .consultation-section {
+            padding: 60px 20px;
+        }
+        
+        .price-info {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e1f5fe 100%);
+            border-radius: 10px;
+            padding: 30px;
+            margin: 30px 0;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .price-item {
+            margin-bottom: 15px;
+        }
+        
+        .price-amount {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        
+        /* Brand Carousel */
+        .brands-section {
+            margin: 50px 0;
+        }
+        
+        .brands-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .brands-carousel {
+            position: relative;
+            overflow: hidden;
+            padding: 20px 0;
+        }
+        
+        .brands-track {
+            display: flex;
+            gap: 30px;
+            transition: transform 0.5s ease;
+        }
+        
+        .brand-card {
+            flex: 0 0 150px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .brand-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .brand-logo {
+            width: 100px;
+            height: 60px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+        
+        .brand-name {
+            font-size: 0.9rem;
+            text-align: center;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+        
+        .carousel-nav {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        .carousel-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+        }
+        
+        .carousel-btn:hover {
+            background: var(--secondary-color);
+        }
+
+        /* Contact & Appointments Section */
+        .contact-section {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e1f5fe 100%);
+            border-radius: 10px;
+            padding: 30px;
+            margin: 30px 0;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .contact-title {
+            font-family: 'Playfair Display', serif;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .contact-methods {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .contact-method {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .contact-icon {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+
+        .contact-text {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .contact-link {
+            color: var(--primary-color);
+            font-weight: 500;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-link:hover {
+            color: var(--secondary-color);
+        }
+
+        .fb-preview {
+            margin-top: 30px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            max-width: 100%;
+        }
+
+        .fb-preview img {
+            width: 100%;
+            display: block;
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .brand-card {
+                flex: 0 0 120px;
+            }
+            
+            .brand-logo {
+                width: 80px;
+                height: 50px;
+            }
+            
+            .price-info, .contact-section {
+                padding: 20px;
+            }
+
+            .contact-methods {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- Navigation -->
+    <div class="nav-container">
+        <div class="nav-wrapper">
+            <!-- Enhanced Burger Menu -->
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                <span class="line"></span>
+                <span class="line"></span>
+                <span class="line"></span>
+            </button>
+
+
+<div class="logo-container">
+    <img class="logo-img" src="{{ url_for('static', filename='images/logo2.png') }}" alt="UB Optical Logo">
+    <div class="logo-text-container">
+        <div class="logo-text"><span>  U-B</span> Optical</div>
+        <div class="logo-subtext">ULIC-ULIC BUENAOBRA OPTICAL</div>
+    </div>
+</div>
+            
+<div class="nav-links">
+    <a href="{{ url_for('index') }}" class="nav-link {{ 'active' if request.endpoint == 'index' }}">HOME</a>
+    <a href="{{ url_for('about') }}" class="nav-link {{ 'active' if request.endpoint == 'about' }}">ABOUT US</a>
+    <a href="{{ url_for('optometrist') }}" class="nav-link {{ 'active' if request.endpoint == 'optometrist' }}">OPTOMETRIST</a>
+    <a href="{{ url_for('location') }}" class="nav-link {{ 'active' if request.endpoint == 'location' }}">LOCATION</a>
+    <a href="{{ url_for('schedule') }}" class="nav-link {{ 'active' if request.endpoint == 'schedule' }}">SCHEDULE</a>
+    <a href="{{ url_for('services') }}" class="nav-link {{ 'active' if request.endpoint == 'services' }}">SERVICES</a>
+    <a href="{{ url_for('consultation') }}" class="nav-link {{ 'active' if request.endpoint == 'consultation' }}">CONSULTATION</a>
+</div>
+            
+            <!-- Admin button on the right -->
+            <!-- Change this in your navigation section -->
+            <div class="nav-actions">
+                <a href="{{ url_for('login') }}" class="action-icon admin-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Consultation Content -->
+    <section class="content-section">
+        <div class="section-container">
+            <h2 class="section-title">Consultation</h2>
+            
+            <div class="price-info">
+                <div class="price-item">
+                    <span>Consultation Fee: </span>
+                    <span class="price-amount">₱300</span>
+                </div>
+                <div class="price-item">
+                    <span>Complete Eyeglasses: </span>
+                    <span class="price-amount">₱700 up</span>
+                    <p>(Depending on the grade, kind of lenses, and frame)</p>
+                </div>
+            </div>
+            <br>
+            <h2 class="section-title">Appointment</h2>
+            <!-- New Contact & Appointment Section -->
+            <div class="contact-section">
+                <h3 class="contact-title">Schedule an Appointment</h3>
+                <p class="section-text">For consultations, appointments, and inquiries, please contact us through the following methods:</p>
+                
+                <div class="contact-methods">
+                    <div class="contact-method">
+                        <p class="contact-text">
+                            <i class="fab fa-facebook-square contact-icon"></i>
+                            Message us on Facebook:
+                            <a href="https://www.facebook.com/UBopticalEyecare/" target="_blank" class="contact-link">
+                                facebook.com/UBopticalEyecare
+                            </a>
+                        </p>
+                    </div>
+                    
+                    <div class="contact-method">
+                        <p class="contact-text">
+                            <i class="fas fa-phone-alt contact-icon"></i>
+                            Call Us:
+                            
+                            <a href="tel:09327235857" class="contact-link">0932-723-5857</a>
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Facebook Page Preview -->
+                <div class="fb-preview">
+                    <img src="{{ url_for('static', filename='images/epbi.jpg') }}" alt="U-B Optical Facebook Page">
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- JavaScript -->
+    <script>
+        
+        // Mobile menu functionality
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuToggle.addEventListener('click', function() {
+            navLinks.classList.toggle('mobile-active');
+            this.classList.toggle('active');
+        });
+        
+        // Close mobile menu when a link is clicked
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    navLinks.classList.remove('mobile-active');
+                    mobileMenuToggle.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

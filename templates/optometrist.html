@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="/static/optometrist.css">
+    <title>About Our Optometrist | U-B Optical</title>
+    <link rel="website icon" type="png" href="{{ url_for('static', filename='images/logo2.png') }}" alt="Logo">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <!-- Navigation -->
+    <div class="nav-container">
+        <div class="nav-wrapper">
+            <!-- Enhanced Burger Menu -->
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                <span class="line"></span>
+                <span class="line"></span>
+                <span class="line"></span>
+            </button>
+
+
+<div class="logo-container">
+    <img class="logo-img" src="{{ url_for('static', filename='images/logo2.png') }}" alt="UB Optical Logo">
+    <div class="logo-text-container">
+        <div class="logo-text"><span>  U-B</span> Optical</div>
+        <div class="logo-subtext">ULIC-ULIC BUENAOBRA OPTICAL</div>
+    </div>
+</div>
+            
+<div class="nav-links">
+    <a href="{{ url_for('index') }}" class="nav-link {{ 'active' if request.endpoint == 'index' }}">HOME</a>
+    <a href="{{ url_for('about') }}" class="nav-link {{ 'active' if request.endpoint == 'about' }}">ABOUT US</a>
+    <a href="{{ url_for('optometrist') }}" class="nav-link {{ 'active' if request.endpoint == 'optometrist' }}">OPTOMETRIST</a>
+    <a href="{{ url_for('location') }}" class="nav-link {{ 'active' if request.endpoint == 'location' }}">LOCATION</a>
+    <a href="{{ url_for('schedule') }}" class="nav-link {{ 'active' if request.endpoint == 'schedule' }}">SCHEDULE</a>
+    <a href="{{ url_for('services') }}" class="nav-link {{ 'active' if request.endpoint == 'services' }}">SERVICES</a>
+    <a href="{{ url_for('consultation') }}" class="nav-link {{ 'active' if request.endpoint == 'consultation' }}">CONSULTATION</a>
+</div>
+            
+            <!-- Admin button on the right -->
+            <!-- Change this in your navigation section -->
+            <div class="nav-actions">
+                <a href="{{ url_for('login') }}" class="action-icon admin-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">Meet Our Expert Optometrist</h1>
+                <p class="hero-subtitle">Dedicated to providing exceptional eye care with compassion and expertise</p>
+            </div>
+            <div class="hero-image-container">
+                <div>
+                    <img src="{{ url_for('static', filename='images/yunka1.png') }}" alt="Dr. Romina U. Buenaobra" class="hero-image">
+                    <div class="optometrist-name"><b>Dr. Romina U. Buenaobra, O.D.</b></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Content Section -->
+    <section class="content-section">
+        <div class="section-container">
+            <h2 class="section-title">Professional Eye Care</h2>
+            <p class="section-text">
+                At U-B Optical, we're proud to have <strong>Dr. Romina U. Buenaobra, O.D. </strong> as our lead optometrist. 
+                With over 12 years of experience in the field, she brings a wealth of knowledge and a 
+                personalized approach to every eye examination and consultation.
+            </p>
+            
+            <div class="highlight-box">
+                <p>
+                    "Vision is more than just clear sight—it's about quality of life. My mission is to 
+                    ensure each patient receives the highest standard of eye care tailored to their 
+                    unique needs and lifestyle."
+                </p>
+                <p style="margin-top: 15px; font-weight: 500;">— Dr. Romina U. Buenaobra, O.D. </p>
+            </div>
+            
+            <h2 class="section-title" style="margin-top: 60px;">Why Choose Our Optometrist?</h2>
+            
+            <div class="qualities-grid">
+                <div class="quality-card">
+                    <div class="quality-icon">👁️</div>
+                    <h3 class="quality-title">Comprehensive Exams</h3>
+                    <p class="quality-text">
+                        Thorough eye examinations using state-of-the-art equipment to detect vision 
+                        problems, eye diseases, and other health issues that may affect your eyes.
+                    </p>
+                </div>
+                
+                <div class="quality-card">
+                    <div class="quality-icon">👶</div>
+                    <h3 class="quality-title">Pediatric Expertise</h3>
+                    <p class="quality-text">
+                        Specialized in children's eye care, ensuring early detection and treatment 
+                        of vision problems that could affect learning and development.
+                    </p>
+                </div>
+                
+                <div class="quality-card">
+                    <div class="quality-icon">💡</div>
+                    <h3 class="quality-title">Personalized Solutions</h3>
+                    <p class="quality-text">
+                        Customized vision correction plans tailored to your specific needs, lifestyle, 
+                        and visual demands, whether for work, sports, or everyday activities.
+                    </p>
+                </div>
+                
+                <div class="quality-card">
+                    <div class="quality-icon">🕒</div>
+                    <h3 class="quality-title">Time for Each Patient</h3>
+                    <p class="quality-text">
+                        We never rush appointments. You'll receive the time and attention needed 
+                        to address all your vision concerns and questions.
+                    </p>
+                </div>
+                
+                <div class="quality-card">
+                    <div class="quality-icon">📚</div>
+                    <h3 class="quality-title">Continuing Education</h3>
+                    <p class="quality-text">
+                        Committed to staying current with the latest advancements in optometry 
+                        through ongoing professional education and training.
+                    </p>
+                </div>
+                
+                <div class="quality-card">
+                    <div class="quality-icon">❤️</div>
+                    <h3 class="quality-title">Compassionate Care</h3>
+                    <p class="quality-text">
+                        A warm, friendly approach that puts patients at ease while providing 
+                        expert care in a comfortable environment.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile menu functionality
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuToggle.addEventListener('click', function() {
+            navLinks.classList.toggle('mobile-active');
+            this.classList.toggle('active');
+        });
+        
+        // Close mobile menu when a link is clicked
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    navLinks.classList.remove('mobile-active');
+                    mobileMenuToggle.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
